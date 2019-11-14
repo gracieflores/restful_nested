@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  
+    
+    <h1>{{title}}</h1>
+    <form (submit)="onSubmit()">
+      <!-- use the json pipe to see how newTask changes in real time -->
+      <p> {{ newTask | json }} </p>
+      <label>Task title:
+        <input type="text" name="title" [(ngModel)]="newTask.title" />
+      </label>
+      <label>Task Description:
+        <input type="text" name="description" [(ngModel)]="newTask.description" />
+      </label>
+      <input type="submit" value="Create Task" />
+  </form>
+
+    <button (click)="onButtonClick()" >GET ALL TASKS</button>
+    <ul>
+      <li *ngFor="let t of tasks">{{t.title}}  
+        <button (click)="onButtonClickEvent(t._id)">Show</button>
+        <button (click)="onButtonClickParams(t._id)">Edit</button>
+        <button (click)="delete(t._id)" >Delete</button>
+      </li>
+    </ul>
+
+    <!--<div *ngIf="">
+      <p>{{task.data.title}}</p>
+      <p>{{task.data.description}}</p>
+    </div> -->
+
+    <div *ngIf="task">
+      <form (submit)="onEdit(task.data._id)">
+        <!-- use the json pipe to see how newTask changes in real time -->
+        <p> {{ task | json }} </p>
+        <label>Task title:
+          <input type="text" name="task.data.title" [(ngModel)]="task.data.title" />
+        </label>
+        <label>Task Description:
+          <input type="text" name="task.data.description" [(ngModel)]="task.data.description" />
+        </label>
+        <input type="submit" value="Edit Task" />
+    </form>
+    </div>
+    
+    
+      <app-task *ngIf="selectedTask" [onButtonClickEvent]="selectedTask"></app-task>     <!-- use the selector of the task component to nest it within the root component -->
+
+    
+    
+    
+
+    
+<router-outlet></router-outlet>
+</div>
